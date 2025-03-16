@@ -276,7 +276,7 @@ class Conv2dReLU(nn.Sequential):
             padding=padding,
             bias=not (use_batchnorm),
         )
-        relu = nn.ReLU(inplace=True)
+        relu = nn.ReLU(inplace=False)
 
         bn = nn.BatchNorm2d(out_channels)
 

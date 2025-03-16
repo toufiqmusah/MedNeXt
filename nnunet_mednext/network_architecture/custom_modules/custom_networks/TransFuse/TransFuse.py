@@ -21,7 +21,7 @@ class BiFusion_block(nn.Module):
 
         # channel attention for F_g, use SE Block
         self.fc1 = nn.Conv2d(ch_2, ch_2 // r_2, kernel_size=1)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU(inplace=False)
         self.fc2 = nn.Conv2d(ch_2 // r_2, ch_2, kernel_size=1)
         self.sigmoid = nn.Sigmoid()
 
@@ -34,7 +34,7 @@ class BiFusion_block(nn.Module):
         self.W_x = Conv(ch_2, ch_int, 1, bn=True, relu=False)
         self.W = Conv(ch_int, ch_int, 3, bn=True, relu=True)
 
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU(inplace=False)
 
         self.residual = Residual(ch_1+ch_2+ch_int, ch_out)
 
@@ -256,7 +256,7 @@ class Attention_block(nn.Module):
             nn.BatchNorm2d(1),
             nn.Sigmoid()
         )
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU(inplace=False)
         
     def forward(self,g,x):
         g1 = self.W_g(g)
@@ -272,7 +272,7 @@ class DoubleConv(nn.Module):
         self.double_conv = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True),
+            nn.ReLU(inplace=False),
             nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
             nn.BatchNorm2d(out_channels)
         )
@@ -280,7 +280,7 @@ class DoubleConv(nn.Module):
                 nn.Conv2d(in_channels, out_channels, kernel_size=1, padding=0),
                 nn.BatchNorm2d(out_channels)
                 )
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU(inplace=False)
 
     def forward(self, x):
         return self.relu(self.double_conv(x)+self.identity(x))
@@ -289,7 +289,7 @@ class DoubleConv(nn.Module):
 class Residual(nn.Module):
     def __init__(self, inp_dim, out_dim):
         super(Residual, self).__init__()
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU(inplace=False)
         self.bn1 = nn.BatchNorm2d(inp_dim)
         self.conv1 = Conv(inp_dim, int(out_dim/2), 1, relu=False)
         self.bn2 = nn.BatchNorm2d(int(out_dim/2))
@@ -328,7 +328,7 @@ class Conv(nn.Module):
         self.relu = None
         self.bn = None
         if relu:
-            self.relu = nn.ReLU(inplace=True)
+            self.relu = nn.ReLU(inplace=False)
         if bn:
             self.bn = nn.BatchNorm2d(out_dim)
 

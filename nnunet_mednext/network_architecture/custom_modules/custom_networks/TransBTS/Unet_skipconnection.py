@@ -37,11 +37,11 @@ class EnBlock(nn.Module):
         super(EnBlock, self).__init__()
 
         self.bn1 = normalization(in_channels, norm=norm)
-        self.relu1 = nn.ReLU(inplace=True)
+        self.relu1 = nn.ReLU(inplace=False)
         self.conv1 = nn.Conv3d(in_channels, in_channels, kernel_size=3, padding=1)
 
         self.bn2 = normalization(in_channels, norm=norm)
-        self.relu2 = nn.ReLU(inplace=True)
+        self.relu2 = nn.ReLU(inplace=False)
         self.conv2 = nn.Conv3d(in_channels, in_channels, kernel_size=3, padding=1)
 
     def forward(self, x):

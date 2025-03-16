@@ -49,7 +49,7 @@ class BasicBlock(nn.Module):
         super().__init__()
         self.conv1 = conv3x3(inplanes, planes, stride)
         self.bn1 = nn.BatchNorm2d(inplanes)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU(inplace=False)
 
         self.conv2 = conv3x3(planes, planes)
         self.bn2 = nn.BatchNorm2d(planes)
@@ -88,7 +88,7 @@ class BasicTransBlock(nn.Module):
             self.attn = LinearAttention(in_ch, heads=heads, dim_head=in_ch//heads, attn_drop=attn_drop, proj_drop=proj_drop, reduce_size=reduce_size, projection=projection, rel_pos=rel_pos)
         
         self.bn2 = nn.BatchNorm2d(in_ch)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU(inplace=False)
         self.mlp = nn.Conv2d(in_ch, in_ch, kernel_size=1, bias=False)
         # conv1x1 has not difference with mlp in performance
 
@@ -125,7 +125,7 @@ class BasicTransDecoderBlock(nn.Module):
             self.attn = LinearAttentionDecoder(in_ch, out_ch, heads=heads, dim_head=out_ch//heads, attn_drop=attn_drop, proj_drop=proj_drop, reduce_size=reduce_size, projection=projection, rel_pos=rel_pos)
             
         self.bn2 = nn.BatchNorm2d(out_ch)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.ReLU(inplace=False)
         self.mlp = nn.Conv2d(out_ch, out_ch, kernel_size=1, bias=False)
 
     def forward(self, x1, x2):

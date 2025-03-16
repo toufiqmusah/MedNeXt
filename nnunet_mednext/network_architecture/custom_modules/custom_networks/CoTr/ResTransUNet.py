@@ -44,7 +44,7 @@ def Norm_layer(norm_cfg, inplanes):
     return out
 
 
-def Activation_layer(activation_cfg, inplace=True):
+def Activation_layer(activation_cfg, inplace=False):
 
     if activation_cfg == 'ReLU':
         out = nn.ReLU(inplace=inplace)
@@ -59,7 +59,7 @@ class Conv3dBlock(nn.Module):
         super(Conv3dBlock,self).__init__()
         self.conv = conv3x3x3(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation, bias=bias, weight_std=weight_std)
         self.norm = Norm_layer(norm_cfg, out_channels)
-        self.nonlin = Activation_layer(activation_cfg, inplace=True)
+        self.nonlin = Activation_layer(activation_cfg, inplace=False)
     def forward(self,x):
         x = self.conv(x)
         x = self.norm(x)
