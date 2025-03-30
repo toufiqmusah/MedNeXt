@@ -74,7 +74,7 @@ class TransformerBTS(nn.Module):
 
         self.Unet = Unet(in_channels=num_channels, base_channels=16, num_classes=num_classes)
         self.bn = nn.BatchNorm3d(128)
-        self.relu = nn.ReLU(inplace=False)
+        self.relu = nn.ReLU(inplace=True)
 
 
     def encode(self, x):
@@ -238,9 +238,9 @@ class EnBlock1(nn.Module):
         super(EnBlock1, self).__init__()
 
         self.bn1 = nn.BatchNorm3d(512 // 4)
-        self.relu1 = nn.ReLU(inplace=False)
+        self.relu1 = nn.ReLU(inplace=True)
         self.bn2 = nn.BatchNorm3d(512 // 4)
-        self.relu2 = nn.ReLU(inplace=False)
+        self.relu2 = nn.ReLU(inplace=True)
         self.conv1 = nn.Conv3d(in_channels, in_channels // 4, kernel_size=3, padding=1)
         self.conv2 = nn.Conv3d(in_channels // 4, in_channels // 4, kernel_size=3, padding=1)
 
@@ -261,9 +261,9 @@ class EnBlock2(nn.Module):
 
         self.conv1 = nn.Conv3d(in_channels, in_channels, kernel_size=3, padding=1)
         self.bn1 = nn.BatchNorm3d(512 // 4)
-        self.relu1 = nn.ReLU(inplace=False)
+        self.relu1 = nn.ReLU(inplace=True)
         self.bn2 = nn.BatchNorm3d(512 // 4)
-        self.relu2 = nn.ReLU(inplace=False)
+        self.relu2 = nn.ReLU(inplace=True)
         self.conv2 = nn.Conv3d(in_channels, in_channels, kernel_size=3, padding=1)
 
     def forward(self, x):
@@ -298,11 +298,11 @@ class DeBlock(nn.Module):
         super(DeBlock, self).__init__()
 
         self.bn1 = nn.BatchNorm3d(in_channels)
-        self.relu1 = nn.ReLU(inplace=False)
+        self.relu1 = nn.ReLU(inplace=True)
         self.conv1 = nn.Conv3d(in_channels, in_channels, kernel_size=3, padding=1)
         self.conv2 = nn.Conv3d(in_channels, in_channels, kernel_size=3, padding=1)
         self.bn2 = nn.BatchNorm3d(in_channels)
-        self.relu2 = nn.ReLU(inplace=False)
+        self.relu2 = nn.ReLU(inplace=True)
 
     def forward(self, x):
         x1 = self.conv1(x)

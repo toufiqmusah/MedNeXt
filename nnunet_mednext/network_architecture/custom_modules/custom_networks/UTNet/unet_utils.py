@@ -23,13 +23,13 @@ class DoubleConv(nn.Module):
 
             nn.BatchNorm2d(mid_channels),
 
-            nn.ReLU(inplace=False),
+            nn.ReLU(inplace=True),
 
             nn.Conv2d(mid_channels, out_channels, kernel_size=3, padding=1),
 
             nn.BatchNorm2d(out_channels),
 
-            nn.ReLU(inplace=False)
+            nn.ReLU(inplace=True)
 
         )
 
@@ -159,7 +159,7 @@ class BasicBlock(nn.Module):
         super().__init__()
         self.conv1 = conv3x3(inplanes, planes, stride)
         self.bn1 = nn.BatchNorm2d(inplanes)
-        self.relu = nn.ReLU(inplace=False)
+        self.relu = nn.ReLU(inplace=True)
 
         self.conv2 = conv3x3(planes, planes)
         self.bn2 = nn.BatchNorm2d(planes)
@@ -193,7 +193,7 @@ class BottleneckBlock(nn.Module):
         super().__init__()
         self.conv1 = conv1x1(inplanes, planes//4, stride=1)
         self.bn1 = nn.BatchNorm2d(inplanes)
-        self.relu = nn.ReLU(inplace=False)
+        self.relu = nn.ReLU(inplace=True)
 
         self.conv2 = conv3x3(planes//4, planes//4, stride=stride)
         self.bn2 = nn.BatchNorm2d(planes//4)
@@ -234,7 +234,7 @@ class inconv(nn.Module):
     def __init__(self, in_ch, out_ch, bottleneck=False):
         super().__init__()
         self.conv1 = nn.Conv2d(in_ch, out_ch, kernel_size=3, padding=1, bias=False)
-        self.relu = nn.ReLU(inplace=False)
+        self.relu = nn.ReLU(inplace=True)
 
         if bottleneck:
             self.conv2 = BottleneckBlock(out_ch, out_ch)
