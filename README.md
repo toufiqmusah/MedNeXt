@@ -111,7 +111,7 @@ Utility functions have been defined for re-creating these architectures (with or
 from nnunet_mednext import create_mednext_v1
 
 model = create_mednext_v1(
-  num_channels = 3,
+  num_input_channels = 3,
   num_classes = 10,
   model_id = 'B',             # S, B, M and L are valid model ids
   kernel_size = 3,            # 3x3x3 and 5x5x5 were tested in publication
